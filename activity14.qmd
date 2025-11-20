@@ -81,4 +81,6 @@ So far, I feel like I've gained skills for how to produce cleaner, and easy to r
 {{< pagebreak >}}
 # Code Appendix
 ```{r codeAppend, ref.label = knitr::all_labels(), echo = TRUE, eval = FALSE}
+
 ```
+
