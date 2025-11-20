@@ -1,0 +1,84 @@
+---
+title: "My first QMD File"
+author: "Kevin Ninh"
+date: "Nov. 13, 2025"
+date-modified: now
+format: 
+  pdf: 
+    toc: false
+    number-sections: true
+    number-depth: 5
+    fig-align: center
+    cap-location: top
+    geometry: 
+      - top=1in
+      - left=1in
+      - right=1in
+      - bottom=1in
+    colorlinks: true
+execute: 
+  echo: false
+  warning: false
+---
+
+# Plotting a Mathematical Function 
+
+```{r}
+boxVolume <- function(boxHeight = 1, paperLength = 48, paperWidth = 36) {
+  # boxHeight: height of the box (side length of the corner cutouts)
+  # paperLength: length of the sheet of paper
+  # paperWidth: width of the sheet of paper
+  
+  # After removing squares of side boxHeight from each corner:
+  boxWidth  <- paperWidth  - 2 * boxHeight
+  boxLength <- paperLength - 2 * boxHeight
+  
+  # Volume of the resulting open-top box
+  volume <- boxWidth * boxLength * boxHeight
+  return(volume)
+}
+
+# Box height cannot exceed half of the smaller dimension
+maxHeight <- min(36, 48) / 2   # = 18 inches
+
+# Visualization of the Volume Function
+library(ggplot2)
+
+# Create the plot using stat_function
+box_plot <- ggplot(data.frame(x = c(0, maxHeight)), aes(x = x)) +
+  stat_function(fun = boxVolume, linewidth = 1) +
+  labs(
+    title = "Volume of a Box from a 36\" × 48\" Sheet",
+    x = "Box Height (inches)",
+    y = "Volume (cubic inches)"
+  ) +
+  theme_minimal(base_size = 14)
+
+# Print the plot
+box_plot
+
+# Finds the boxHeight between 0 and maxHeight that maximizes volume
+optimal <- optimize(
+  f = boxVolume,
+  interval = c(0, maxHeight),
+  maximum = TRUE
+)
+
+optimal
+
+
+```
+
+Based on this visualization, we can see that the max volume is about 5239 cubic inches when our side length of cut squares is about about 6.7 inches.
+------------------------------------------------------------------------
+
+# What I Feel I’ve Learned So Far
+
+So far, I feel like I've gained skills for how to produce cleaner, and easy to read code. Not only that but I've gained a deeper understanding on the different kinds of visualizations and different graphs that should be used for their respective scenarios. Especially after reading the Tufte and Kosslyn readings, those readings really stuck with me when it comes to thinking about visualizations.
+
+------------------------------------------------------------------------
+
+{{< pagebreak >}}
+# Code Appendix
+```{r codeAppend, ref.label = knitr::all_labels(), echo = TRUE, eval = FALSE}
+```
